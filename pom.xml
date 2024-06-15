@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.bvr</groupId>
-	<artifactId>h2project</artifactId>
+	<artifactId>CrudWithH2Project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>h2project</name>
 	<description>Demo project for Spring Boot</description>
