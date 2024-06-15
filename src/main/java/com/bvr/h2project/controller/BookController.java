@@ -2,6 +2,7 @@ package com.bvr.h2project.controller;
 
 import com.bvr.h2project.entity.Book;
 import com.bvr.h2project.service.BookService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ public class BookController {
         return bookService.findAll();
     }
 
+    @Operation(summary = "getBookById", description = "Returns book info")
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Long id) {
         Optional<Book> book = bookService.findById(id);
