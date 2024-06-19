@@ -16,8 +16,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
-@SpringBootTest
+//@SpringBootTest
 @AutoConfigureMockMvc
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class H2projectApplicationTests {
 
 	@Autowired
@@ -26,8 +27,12 @@ class H2projectApplicationTests {
 	@Autowired
 	private BookRepository bookRepository;
 
+
+
 	@Test
-	void contextLoads() {
+	void contextLoads()  throws Exception{
+		//Keep the application context running (to launch h2-console while running the test case)
+		Thread.sleep(Long.MAX_VALUE);
 	}
 
 	@Test
@@ -45,7 +50,7 @@ class H2projectApplicationTests {
 	void testGetAllBooks() throws Exception {
 		Book book = new Book();
 		book.setTitle("Test Book");
-		book.setAuthor("Test Author");
+		book.setAuthor("bharath");
 		bookRepository.save(book);
 
 		mockMvc.perform(get("/api/books"))
@@ -58,7 +63,7 @@ class H2projectApplicationTests {
 	void testGetBookById() throws Exception {
 		Book book = new Book();
 		book.setTitle("Test Book");
-		book.setAuthor("Test Author");
+		book.setAuthor("bharath");
 		book = bookRepository.save(book);
 
 		mockMvc.perform(get("/api/books/" + book.getId()))
@@ -85,11 +90,12 @@ class H2projectApplicationTests {
 	@Test
 	void testDeleteBook() throws Exception {
 		Book book = new Book();
+		book.setId(1L);
 		book.setTitle("Test Book");
 		book.setAuthor("Test Author");
 		book = bookRepository.save(book);
 
-		mockMvc.perform(delete("/api/books/" + book.getId()))
+		mockMvc.perform(delete("/api/books/" + 2))
 				.andExpect(status().isNoContent());
 
 		Optional<Book> deletedBook = bookRepository.findById(book.getId());
